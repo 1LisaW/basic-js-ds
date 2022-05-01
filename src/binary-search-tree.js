@@ -1,6 +1,7 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
 const { Node } = require('../extensions/list-tree.js');
+const util = require('util')
 
 class BinarySearchTree {
   constructor() {
@@ -61,7 +62,6 @@ class BinarySearchTree {
   }
 
   remove(data) {
-
     // if tree is empty
     if (this.root() === null) return null;
     // init values to search from root;
@@ -108,21 +108,17 @@ class BinarySearchTree {
         forReplaceNode = forReplaceNode.left;
 
       };
-      forReplaceNodeParent.left = forReplaceNode.right;
+      // if right node of currentNode is position for replace
+      if (forReplaceNode === forReplaceNodeParent){
+        currentNode.right = forReplaceNode.right;
+      } else{
+        forReplaceNodeParent.left = forReplaceNode.right;
+      }
       forReplaceNode.left = currentNode.left;
       forReplaceNode.right = currentNode.right;
-      if (parentNode.left === currentNode ){
-        parentNode.left = forReplaceNode;
-      }
-      else{
-        parentNode.right = forReplaceNode;
-      }
+       parentNode[direction] = forReplaceNode;
       if (this.root() === currentNode) this.treeRoot = forReplaceNode;
-
-
     }
-
-
   }
 
   min() {
